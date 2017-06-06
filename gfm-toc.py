@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 import sys
 import codecs
 
-version = '1.0.0'
+version = '1.1.0'
 
 useragent = f'gh-md-toc v{version}'
 
