@@ -10,14 +10,29 @@ lists with `-n`! Also, the input file defaults to `README.md`.
 
 # Table of Contents
 
-* [gfm-toc.py](#gfm-tocpy)
-* [Usage](#usage)
-* [Arguments](#arguments)
-* [License](#license)
+1. [`gfm-toc.py`](#gfm-tocpy)
+2. [Table of Contents](#table-of-contents)
+3. [Arguments and Usage](#arguments-and-usage)
+    1. [Usage](#usage)
+    2. [Arguments](#arguments)
+        1. [Quick reference table](#quick-reference-table)
+        2. [`-h`, `--help`](#-h---help)
+        3. [`-`](#-)
+        4. [`--license`](#--license)
+        5. [`-n`, `--number`](#-n---number)
+        6. [`-e`, `--equals`](#-e---equals)
+        7. [`--header` (Default: 'Table of Contents')](#--header-default-table-of-contents)
+        8. [`--no-header`](#--no-header)
+        9. [`--encoding` (Default: 'utf-8')](#--encoding-default-utf-8)
+        10. [`--header-depth` (Default: 1)](#--header-depth-default-1)
+        11. [`-v`, `--version`](#-v---version)
+3. [License](#license)
 
 (I’m obligated to have this here, right?)
 
-# Usage
+# Arguments and Usage
+
+## Usage
 
 ```
 usage: gh-md-toc [-h] [-] [--license] [-n] [-e] [--header HEADER]
@@ -26,20 +41,64 @@ usage: gh-md-toc [-h] [-] [--license] [-n] [-e] [--header HEADER]
                  [src_file [src_file ...]]
 ```
 
-# Arguments
+## Arguments
 
-|Argument         |Description
-|-----------------|------------
-|`-h`, `--help`   |Show help and exit.
-|`-`              |Read from STDIN instead of a file.
-|`--license`      |Print license information (MIT) and exit.
-|`-n`, `--number` |Generate a numbered list instead of bullets.
-|`-e`, `--equals` |Notate header with equals signs rather than hashes. Purely cosmetic
-|`--header`       |Custom text for the section header.  Default: `Table of Contents`.
-|`--no-header`    |Don't generate a table header.
-|`--encoding`     |Encoding of all input files. Frankly, there's no excuse to ever use this argument. Default: `utf-8`.
-|`--header-depth` |Header depth; number of hashes to output before the header. Default: 1.
-|`-v`, `--version`|show program's version number and exit
+### Quick reference table
+
+|Short|Long          |Description
+|-----|--------------|--------------------------------------
+|-h   |--help        |show this help message and exit
+|-    |              |Read from STDIN instead of a file
+|     |--license     |Print license information and exit
+|-n   |--number      |Generate a numbered list instead of a bulleted one
+|-e   |--equals      |Use equals signs (=) on the next line instead of hashes (#) for level one and two headers
+|     |--header      |Custom text for the section header. Default: `Table of Contents`
+|     |--no-header   |Don't generate a table header
+|     |--encoding    |Encoding of all input files. Default: `utf-8`
+|     |--header-depth|Header depth; number of hashes to output before the top. Default: `1`
+|-v   |--version     |show program's version number and exit
+
+### `-h`, `--help`
+
+show this help message and exit
+
+### `-`
+
+Read from STDIN instead of a file.
+
+### `--license`
+
+Print license information (MIT) and exit.
+
+### `-n`, `--number`
+
+Generate a numbered list instead of a bulleted list.
+
+### `-e`, `--equals`
+
+Use equals signs (=) on the next line instead of hashes (#) in the header text.
+Purely cosmetic, does not effect rendered HTML.
+
+### `--header` (Default: 'Table of Contents')
+
+Custom text for the section header. Default: `Table of Contents`.
+
+### `--no-header`
+
+Don't generate a table header.
+
+### `--encoding` (Default: 'utf-8')
+
+Encoding of all input files. Frankly, there's no excuse to ever use this
+argument
+
+### `--header-depth` (Default: 1)
+
+Header depth; number of hashes to output before the header.
+
+### `-v`, `--version`
+
+show program's version number and exit
 
 # License
 

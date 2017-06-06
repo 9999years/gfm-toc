@@ -95,7 +95,7 @@ class headerExtracter(HTMLParser):
         self.parsed_data = []
         self.reset()
 
-    def handle_headertag(self, tag):
+    def handle_tag(self, tag):
         if tag[0] == 'h' and len(tag) > 1:
             if (# messy but easier / faster than regular expressions
                 tag[1] == '1' or
@@ -120,19 +120,25 @@ class headerExtracter(HTMLParser):
                     self.inheader = False
                 return True
         else:
+            if tag == 'code':
+                self.currenthead += '`'
+            elif tag == 'i':
+                self.currenthead += '*'
+            elif tag == 'b':
+                self.currenthead += '**'
             # not a header tag
             return False
 
     def handle_starttag(self, tag, attrs):
         # if we’re in a header, we need the href
-        if not self.handle_headertag(tag):
+        if not self.handle_tag(tag):
             if tag == 'a' and self.inheader:
                 for attr in attrs:
                     if attr[0] == 'href':
                         self.lasthref = attr[1]
 
     def handle_endtag(self, tag):
-        self.handle_headertag(tag)
+        self.handle_tag(tag)
 
     def handle_data(self, data):
         # cat data if in a header
@@ -197,13 +203,15 @@ if not args.no_header:
         print(args.header_depth * '#' + ' ' + args.header)
     print('')
 
+numbering = 'number' if args.number else 'bullet'
+
 if args.use_stdin:
     # catenate stdinput, parse / render
     md = ''
     for line in sys.stdin:
         md += line + '\n'
     parser.feed(mdtohtml(md))
-    print(treetomd(parser.parsed_data))
+    print(treetomd(parser.parsed_data, numbering=numbering))
 
 # process each file, respecting encoding, although i really hope nobody ever
 # uses that argument and to be quite frank i haven't tested it
@@ -211,6 +219,6 @@ for fname in args.src_file:
     with open(fname, 'r', encoding=args.encoding) as f:
         parser.feed(mdtohtml(f.read(), encoding=args.encoding))
         tree = parser.parsed_data
-        print(treetomd(tree))
+        print(treetomd(tree, numbering=numbering))
 
 parser.close()
