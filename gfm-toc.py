@@ -6,8 +6,8 @@ import sys
 import codecs
 
 version = '1.1.0'
-
-useragent = f'gh-md-toc v{version}'
+prog = 'gfm-toc'
+useragent = f'{prog} v{version}'
 
 def mdtohtml(md, encoding='utf-8'):
     """ Get HTML from GitHub, return it """
@@ -22,7 +22,7 @@ def mdtohtml(md, encoding='utf-8'):
 argparser = argparse.ArgumentParser(
     description='Render a TOC for GFM from a .md file',
     epilog='More info: github.com/9999years/github-markdown-toc',
-    prog='gh-md-toc'
+    prog=prog
 )
 
 argparser.add_argument('src_file', nargs='*', default=['README.md'],
@@ -188,6 +188,8 @@ def treetomd(tree, numbering='bullet', sep='.'):
 
 # create parser
 parser = headerExtracter()
+
+numbering = 'number' if args.number else 'bullet'
 
 if not args.no_header:
     # use
