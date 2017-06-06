@@ -5,7 +5,7 @@ from html.parser import HTMLParser
 import sys
 import codecs
 
-version = '1.0.0'
+version = '1.0.1'
 
 useragent = f'gh-md-toc v{version}'
 
@@ -183,6 +183,8 @@ def treetomd(tree, numbering='bullet', sep='.'):
 # create parser
 parser = headerExtracter()
 
+numbering = 'number' if args.number else 'bullet'
+
 if not args.no_header:
     # use
     #    header
@@ -203,7 +205,7 @@ if args.use_stdin:
     for line in sys.stdin:
         md += line + '\n'
     parser.feed(mdtohtml(md))
-    print(treetomd(parser.parsed_data))
+    print(treetomd(parser.parsed_data, numbering=numbering))
 
 # process each file, respecting encoding, although i really hope nobody ever
 # uses that argument and to be quite frank i haven't tested it
@@ -211,6 +213,6 @@ for fname in args.src_file:
     with open(fname, 'r', encoding=args.encoding) as f:
         parser.feed(mdtohtml(f.read(), encoding=args.encoding))
         tree = parser.parsed_data
-        print(treetomd(tree))
+        print(treetomd(tree, numbering=numbering))
 
 parser.close()
